@@ -1,29 +1,22 @@
-import React from 'react'
-import { useMenuContext } from '../context/MenuContext';
-import { useLocation } from 'react-router';
-
+import {motion} from 'framer-motion'
 type MenuLinkProps = {
   id: string;
   name: string;
-
-}
-const MenuLink = ({id, name}: MenuLinkProps) => {
-  const location = useLocation();
+  active: boolean;
+};
+const MenuLink = ({ id, name,active }: MenuLinkProps) => {
   
   return (
-    <>
-    <div className='mb-3'>
-    <a href={`#${id}`}
-    className={location.hash === `#${id}` ? 'text-primary' : ''}
-    >
-      {name}
-    </a>
-    </div>
+      <motion.div layoutId='item'>
+        <div className={`${active ? 'absolute z-70 bg-active' : 'hidden'} h-5 w-2 rounded-full`}></div>
+        <a
+          href={`#${id}`}
+          className={`${active && 'text-active'} ? "text-active font-semibold" : ""} ml-10`}
+        >
+          {name}
+        </a>
+      </motion.div>
+  );
+};
 
-    <hr/>
-    </>
-
-  )
-}
-
-export default MenuLink
+export default MenuLink;

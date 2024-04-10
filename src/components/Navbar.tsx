@@ -1,20 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AnimatePresence, color, useAnimate, useScroll } from "framer-motion";
+import { AnimatePresence, useAnimate, useScroll, useTransform } from "framer-motion";
 import React, { useState } from "react";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import Topbar from "./Topbar";
-import SectionWrapper from "../wrapper/SectionWrapper";
-import { slideIn } from "../utils/animations";
-import { useMenuContext } from "../context/MenuContext";
-
 
 const Navbar = () => {
   const [scope, animate] = useAnimate();
   const [showMenu, setShowMenu] = useState(false);
+  const {scrollY} = useScroll();
 
+  const show = useTransform(scrollY, [0, 10], [0, 1])
   const handleMenuOpen = () => {
-    setShowMenu(prevState => !prevState);
+    setShowMenu((prevState) => !prevState);
     if (showMenu) {
       animate("svg", { rotate: 0 }, { type: "spring", duration: 1 });
     } else {
@@ -23,8 +21,8 @@ const Navbar = () => {
   };
   return (
     <>
-      <header className="fixed w-full z-20">
-        <div
+      <header className="fixed w-full z-50">
+        <motion.div
           className={`flex justify-between items-center m-5 p-3 rounded-full text-white ${
             showMenu ? "bg-dark border-solid border-[1px] border-tertiary" : ""
           }`}
@@ -57,14 +55,12 @@ const Navbar = () => {
               Hit me up
             </motion.button>
           </div>
-        </div>
+        </motion.div>
+
       </header>
       <AnimatePresence>
-      {showMenu && (
-          <Topbar handleClose={handleMenuOpen}/>
-      )}
+        {showMenu && <Topbar handleClose={handleMenuOpen} />}
       </AnimatePresence>
-
     </>
   );
 };
