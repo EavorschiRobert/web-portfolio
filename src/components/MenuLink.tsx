@@ -5,17 +5,18 @@ type MenuLinkProps = {
   active: boolean;
 };
 const MenuLink = ({ id, name,active }: MenuLinkProps) => {
-  
   return (
-      <motion.div layoutId='item'>
-        <div className={`${active ? 'absolute z-70 bg-active' : 'hidden'} h-5 w-2 rounded-full`}></div>
+      // <motion.div layoutId='item'>
+      <div className='flex flex-col-reverse items-center justify-center w-full'>
+        <div className={`${active ? ' bg-active' : 'hidden'} h-1 w-full rounded-full`}></div>
         <a
           href={`#${id}`}
-          className={`${active && 'text-active'} ? "text-active font-semibold" : ""} ml-10`}
+          className={`w-full ${active && 'text-active'} ? "text-active font-semibold" : ""}`}
         >
           {name}
         </a>
-      </motion.div>
+      </div>
+      // </motion.div>
   );
 };
 
