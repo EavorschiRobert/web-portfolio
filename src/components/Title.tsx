@@ -32,17 +32,17 @@ const Title = () => {
       {word.map((character, i) => (
         <motion.p
           key={`${word}-${i}-`}
-          initial={{x: -100+i, opacity: 0, y: -100+i, scale: 2}}
-          animate = {isInView && {x: 1*i, opacity: 1, y:1*i, scale: 1}}
+          initial={{x: -50+i, opacity: 0, y: -50+i, scale: 2}}
+          animate = {isInView && {x: 1*i, opacity: 1, y:1, scale: 1}}
           onAnimationStart={() => setAnimationStart(true)}
-          transition={{repeatType: 'reverse',repeat: 1, repeatDelay: 7,duration: 1, delay: i*0.75}}
+          transition={{type: 'spring', bounce: 0.35, repeatType: 'reverse',repeat: 1, repeatDelay: 5, duration: 1, delay: i*0.35}}
           onAnimationIteration={() => console.log("HEY")}
           onAnimationComplete={() => {
             if(animationStart){
               setAnimationStart(false)
               setTimeout(() => {
                 handleChange()
-              }, 7000)
+              }, 4000)
               }
             }
 
